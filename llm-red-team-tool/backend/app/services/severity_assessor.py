@@ -31,7 +31,7 @@ def compute_risk_score(results: list[DetectionResult]) -> float:
         confidence_factor = result.confidence
         total_weight += severity_weight * type_weight * confidence_factor
 
-    max_possible = sum(
+    max_possible = (
         SEVERITY_WEIGHTS["critical"] * max(TYPE_WEIGHTS.values()) * len(detected)
     )
     if max_possible == 0:

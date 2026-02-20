@@ -8,7 +8,7 @@ async def test_register(client: AsyncClient):
         "/api/v1/auth/register",
         json={
             "email": "new@example.com",
-            "password": "password123",
+            "password": "Newpass1",
             "full_name": "New User",
         },
     )
@@ -22,7 +22,7 @@ async def test_register(client: AsyncClient):
 async def test_register_duplicate_email(client: AsyncClient):
     payload = {
         "email": "dup@example.com",
-        "password": "password123",
+        "password": "Duppass1",
         "full_name": "Dup User",
     }
     await client.post("/api/v1/auth/register", json=payload)
@@ -36,13 +36,13 @@ async def test_login(client: AsyncClient):
         "/api/v1/auth/register",
         json={
             "email": "login@example.com",
-            "password": "password123",
+            "password": "Loginpass1",
             "full_name": "Login User",
         },
     )
     response = await client.post(
         "/api/v1/auth/login",
-        json={"email": "login@example.com", "password": "password123"},
+        json={"email": "login@example.com", "password": "Loginpass1"},
     )
     assert response.status_code == 200
     assert "access_token" in response.json()
@@ -54,13 +54,13 @@ async def test_login_wrong_password(client: AsyncClient):
         "/api/v1/auth/register",
         json={
             "email": "wp@example.com",
-            "password": "password123",
+            "password": "Wppass1",
             "full_name": "WP User",
         },
     )
     response = await client.post(
         "/api/v1/auth/login",
-        json={"email": "wp@example.com", "password": "wrongpassword"},
+        json={"email": "wp@example.com", "password": "wrongpass"},
     )
     assert response.status_code == 401
 
